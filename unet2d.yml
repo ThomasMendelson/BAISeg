@@ -1,0 +1,156 @@
+name: "unet test for SIM+" #"unet"
+
+ckpt_path_dgx: "/raid/data/users/thomasm/ckpts/"
+ckpt_path_runai: "/gpfs0/tamyr/users/thomasm/workspace/ckpts/"
+
+wandb: False
+wandb_tags:
+#  - "harvard"
+  - "Fluo-N2DH-SIM+"
+#  - "Fluo-N2DL-HeLa"
+#  - "Fluo-N2DH-GOWT1"
+#  - "Fluo-C2DL-MSC"
+
+
+#  - "PhC-C2DL-PSC"
+
+_2d: True
+_2_5d: False
+
+data:
+  sys: "CTC"  #"runai" / "dgx" "CTC"
+  dir_dgx: "/raid/data/shared_datasets/cell_tracking_challenge/Training/Silver_GT/"
+  dir_dgx_test: "/raid/data/users/thomasm/cell_tracking_challenge_test/"
+  dir_runai: "/gpfs0/tamyr/projects/data/CellTrackingChallenge/"
+  train:
+    img:
+      - "Fluo-N2DH-SIM+/02"
+      - "Fluo-N2DL-HeLa-ST/02"
+      - "Fluo-N2DH-GOWT1-ST/02"
+      - "Fluo-C2DL-MSC-ST/01"
+#      - "PhC-C2DL-PSC-ST/01"
+
+    seg:
+      - "Fluo-N2DH-SIM+/02_GT/SEG"
+      - "Fluo-N2DL-HeLa-ST/02_ST/SEG"
+      - "Fluo-N2DH-GOWT1-ST/02_ST/SEG"
+      - "Fluo-C2DL-MSC-ST/01_ST/SEG"
+#      - "PhC-C2DL-PSC-ST/01_ST/SEG"
+
+  val:
+    img:
+      - "Fluo-N2DH-SIM+/01"
+      - "Fluo-N2DL-HeLa-ST/01"
+      - "Fluo-N2DH-GOWT1-ST/01"
+      - "Fluo-C2DL-MSC-ST/02"
+
+
+    seg:
+      - "Fluo-N2DH-SIM+/01_GT/SEG"
+      - "Fluo-N2DL-HeLa-ST/01_ST/SEG"
+      - "Fluo-N2DH-GOWT1-ST/01_ST/SEG"
+      - "Fluo-C2DL-MSC-ST/02_ST/SEG"
+
+#for real test
+  test:
+    img:
+#      - "Fluo-N2DH-SIM+/01"
+#      - "Fluo-N2DH-SIM+/02"
+#      - "Fluo-N2DL-HeLa/01"
+#      - "Fluo-N2DL-HeLa/02"
+#      - "Fluo-N2DH-GOWT1/01"
+#      - "Fluo-N2DH-GOWT1/02"
+#      - "Fluo-C2DL-MSC/01"
+#      - "Fluo-C2DL-MSC/02"
+
+
+  batch_size: 16 
+  num_workers: 8
+  augmentations:
+    affine:
+      max_degrees: 15
+      max_scale: 0.2
+      max_shear: 10
+    horizontal_flip:
+    vertical_flip:
+    random_contrast:
+      contrast_range:
+        - 0.5
+        - 1.5
+    random_brightness:
+      brightness_factor:
+        - 0.9
+        - 1.1
+
+
+model:
+  one_leg: True # False True
+  uaw_loss: False # False True
+  kernel_type: 'sigmoid' # 'standard', 'diagonal', 'smoothed', None
+  dense: False # False True
+  dense_num_layers: 3
+  out_channels: 1
+  #  l1_lambda: 1.e-5
+  with_markers: True # for bin leg
+  sign_dist_leg_warmup: 0 #100
+  #  pre_trained_path: ""
+  #  sigmoid_alpha: 0.2
+  sigmoid_alpha: 2.0
+  alpha_mhd_gt: 1.0     #1
+  alpha_mhd_pred: 1.e-1 # 1.e-1  25.e-2
+  alpha_bce: 1
+  alpha_focal: 5
+  alpha_mse: 1 # 5.e-4
+  alpha_l1: 1 # 3.e-2
+  alpha_huber: 1 # 1.e-1
+
+  test_sim_path: None
+  test_sim_mask_path: None
+  test_hela_path: None
+  test_hela_mask_path: None
+
+
+
+  in_channels: 1
+  features:
+    #    - 64
+    - 128
+    - 256
+    - 512
+    - 1024
+
+trainer:
+  max_epochs: 400 #130 300
+  gpu:
+#    - 0
+#    - 1
+    - 2
+#    - 3
+#  limit_val_batches: 0.5
+
+loss:
+  - name: 'MSELoss'            # Criterion 1   'MSELoss' 'HuberLoss' 'L1Loss'
+  - name: 'L1Loss'
+#  - name: 'HuberLoss'
+#    delta: 0.3
+  - name: 'BCEWithLogitsLoss'  # Criterion 2   'BCEWithLogitsLoss' 'CrossEntropyLoss'
+    pos_weight: 1.5
+#  - name: 'FocalBCEWithLogits'
+#    gamma: 3.0
+#    alpha: 0.6
+
+
+optimizer:
+  name: 'AdamW'
+  lr: 1.e-4
+  weight_decay: 1.e-3    # 1.e-3 5.e-2
+
+
+scheduler:
+  name: 'ReduceLROnPlateau'
+  monitor: 'val_loss'
+  factor: 0.5
+  patience: 15      # was 10
+  min_lr:  6.e-5 # was 1.e-6
+
+
