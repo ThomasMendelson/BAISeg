@@ -40,8 +40,8 @@ pip install -r requirements.txt
 ### 1. Configuration
 The model behavior is controlled via YAML configuration files (e.g., `unet2d.yml`). The configuration is divided into three main sections:
 
-* **Data**: Define dataset paths, batch size, and augmentations (affine, flips, contrast, etc.).
-* **Model**: Configure the architecture (2D/2.5D/3D), loss weights for MHD's, BCE and MSE.
+* **Data**: Define dataset paths, batch size, and augmentations.
+* **Model**: Network architecture and loss weights (MHD, MSE, BCE).
 * **Trainer**: Set training parameters such as maximum epochs, GPU devices, and precision.
 
 You can modify any parameter in the YAML file to adapt the framework to different microscopy datasets or hardware setups.
