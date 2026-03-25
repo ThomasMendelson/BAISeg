@@ -94,7 +94,7 @@ If you use this code or our paper in your research, please cite:
 ```bibtex
 @article{mendelson2026boundary,
   title={Boundary-Aware Instance Segmentation in Microscopy Imaging},
-  author={Mendelson, Thomas and Francois, Joshua and Lahav, Galit and Raviv, Tammy Riklin},
+  author={Mendelson, Thomas and Francois, Joshua and Lahav, Galit and Riklin-Raviv, Tammy },
   journal={arXiv preprint arXiv:2603.21206},
   year={2026},
   note={Accepted for oral presentation at IEEE ISBI 2026}
