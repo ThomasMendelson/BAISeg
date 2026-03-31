@@ -9,11 +9,11 @@ Official implementation of the paper: **"Boundary-Aware Instance Segmentation in
   <a href="#" style="padding-left: 0.5rem;">
     <img src="https://img.shields.io/badge/IEEE%20ISBI%202026-accepted%20oral-brightgreen" alt="IEEE ISBI 2026 Accepted Oral">
   </a>
-  <!--
-  <a href="YOUR_PROJECT_PAGE_LINK" style="padding-left: 0.5rem;">
+  
+  <a href="https://thomasmendelson.github.io/BAISeg-project-page/" style="padding-left: 0.5rem;">
     <img src="https://img.shields.io/badge/project-page-blue" alt="Project Page">
   </a>
-  -->
+  
 </p>
 <p align="center">
   <img src="images/training_pipeline_with_element-wise.png" alt="Training Framework Architecture" width="900"/>
