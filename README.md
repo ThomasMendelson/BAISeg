@@ -2,14 +2,14 @@
 
 Official implementation of the paper: **"Boundary-Aware Instance Segmentation in Microscopy Imaging"**.
 
-<p align="center">
-  <a href="https://arxiv.org/abs/2603.21206" style="padding-left: 0.5rem;">
-    <img src="https://img.shields.io/badge/arXiv-2603.21206-lightblue" alt="arXiv">
-  </a>
+<p align="center">  
   <a href="#" style="padding-left: 0.5rem;">
-    <img src="https://img.shields.io/badge/IEEE%20ISBI%202026-accepted%20oral-brightgreen" alt="IEEE ISBI 2026 Accepted Oral">
+    <img src="https://img.shields.io/badge/IEEE%20ISBI%202026-accepted%20oral-lightblue" alt="IEEE ISBI 2026 Accepted Oral">
   </a>
-  
+
+  <a href="https://arxiv.org/abs/2603.21206" style="padding-left: 0.5rem;">
+    <img src="https://img.shields.io/badge/arXiv-2603.21206-brightgreen" alt="arXiv">
+  </a>
   <a href="https://thomasmendelson.github.io/BAISeg-project-page/" style="padding-left: 0.5rem;">
     <img src="https://img.shields.io/badge/project-page-blue" alt="Project Page">
   </a>
